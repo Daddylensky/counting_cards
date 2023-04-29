@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counting Cards Made Easy</title>
+</head>
+<body>
+    <h1>Hello, this is a basic website with text!</h1>
+    <button type = "button" onclick="Init()" id="myButton">Click me!</button>
+    <button type="button" onclick="Redirection()" id="myButton2">Take me away!</button>
+    <p id="geek1"></p>
+    <p id="geek2"></p>
+    <script>
+        function Init() {
+            document.getElementById("geek1")
+                      .innerHTML = "Hello";
+            document.getElementById("geek2")
+                      .innerHTML ="How are you?";
+        }
+    </script>
+
+    <script>
+        function Redirection() {
+            window.location.href = "second.html";
+        }
+    </script>
+
+
+</body>
+</html>
