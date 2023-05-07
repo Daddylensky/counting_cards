@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style>
+    .startbutton {  
+      top:10%;
+      left: 87%;
+      width:140px;
+      height:40px;
+      position: absolute;
+      z-index: 2;
+      background: orange; 
+    }
+  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Card Deck</title>
+  <link rel="stylesheet" href="browser_load.css"> <!-- Include your CSS file -->
 </head>
 <body>
-  <canvas id="gameCanvas" width="800" height="600"></canvas>
+  <div id="canvasContainer">
+    <canvas id="gameCanvas"></canvas>
+    <input type="button" class="startbutton" id="myab" value="Deal me my CARDS" />
+  </div>  
+
   <script src="blackjack.js"></script>
+
 </body>
 </html>
