@@ -135,7 +135,7 @@ function buttonClicked() {
 
 function drawTableCards() {
   Table.forEach((card, index) => {
-    ctx.drawImage(cardImages[card], 573 + index * 164, 420, 150, 217.8);
+    ctx.drawImage(cardImages[card], 575 + index * 164, 420, 150, 217.8);
   });
 }
 
