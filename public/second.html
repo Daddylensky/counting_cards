@@ -3,8 +3,18 @@
 <head>
   <style>
     .startbutton {  
-      top:10%;
-      left: 87%;
+      top:7%;
+      left: 81%;
+      width:140px;
+      height:40px;
+      position: absolute;
+      z-index: 2;
+      background: orange; 
+    }
+
+    .countbutton {
+      top:7%;
+      left: 70%;
       width:140px;
       height:40px;
       position: absolute;
@@ -20,8 +30,9 @@
 <body>
   <div id="canvasContainer">
     <canvas id="gameCanvas"></canvas>
-    <input type="button" class="startbutton" id="myab" value="Deal me my CARDS" />
-  </div>  
+    <input type="button" class="startbutton" id="myab" value="Deal me my cards" />
+    <input type="button" class="countbutton" id="count" value="Counting Value" />
+  </div>
 
   <script src="blackjack.js"></script>
 

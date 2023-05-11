@@ -15,6 +15,5 @@ shit to implement
     b. ¯\_(ツ)_/¯
 
 
-
 INFO 
 500 × 726
