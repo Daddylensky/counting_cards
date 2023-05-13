@@ -1,10 +1,14 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const startButton = document.getElementById("myab");
-startButton.addEventListener("click", buttonClicked);
+startButton.addEventListener("click", dealNew);
 const startButton2 = document.getElementById("count");
 startButton2.addEventListener("click", counting);
+const Button3 = document.getElementById("reveal");
+Button3.addEventListener("click", reveal);
 let final = 0;
+let isDealCardsClicked = false;
+let boolreveal = false;
 
 const deck = [
   'AS', '2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '10S', 'JS', 'QS', 'KS',
@@ -30,6 +34,14 @@ const deck = [
   'AS', '2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '10S', 'JS', 'QS', 'KS',
   'AH', '2H', '3H', '4H', '5H', '6H', '7H', '8H', '9H', '10H', 'JH', 'QH', 'KH',
   'AC', '2C', '3C', '4C', '5C', '6C', '7C', '8C', '9C', '10C', 'JC', 'QC', 'KC',
+  'AD', '2D', '3D', '4D', '5D', '6D', '7D', '8D', '9D', '10D', 'JD', 'QD', 'KD',
+  'AS', '2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '10S', 'JS', 'QS', 'KS',
+  'AH', '2H', '3H', '4H', '5H', '6H', '7H', '8H', '9H', '10H', 'JH', 'QH', 'KH',
+  'AC', '2C', '3C', '4C', '5C', '6C', '7C', '8C', '9C', '10C', 'JC', 'QC', 'KC',
+  'AD', '2D', '3D', '4D', '5D', '6D', '7D', '8D', '9D', '10D', 'JD', 'QD', 'KD',
+  'AS', '2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '10S', 'JS', 'QS', 'KS',
+  'AH', '2H', '3H', '4H', '5H', '6H', '7H', '8H', '9H', '10H', 'JH', 'QH', 'KH',
+  'AC', '2C', '3C', '4C', '5C', '6C', '7C', '8C', '9C', '10C', 'JC', 'QC', 'KC',
   'AD', '2D', '3D', '4D', '5D', '6D', '7D', '8D', '9D', '10D', 'JD', 'QD', 'KD'
 ];
 
@@ -42,9 +54,9 @@ const cardImages = {};
 function loadImages() {
   // Add card back image
   const cardBack = new Image();
-  cardBack.src = `cards/card-back.png`;
+  cardBack.src = `cards/back.png`;
   cardBack.onload = () => {
-    cardImages['card-back'] = cardBack;
+    cardImages['back'] = cardBack;
     checkAllImagesLoaded();
   };
 
@@ -61,7 +73,7 @@ function loadImages() {
   }
 
   function checkAllImagesLoaded() {
-    if (loadedImagesCount === deck.length && cardImages['card-back']) {
+    if (loadedImagesCount === deck.length && cardImages['back']) {
       init();
     }
   }
@@ -97,9 +109,10 @@ function drawCards() {
   
   // Draw dealer's cards
   Dealer.forEach((card, index) => {
-    if (index === 0) {
-      ctx.drawImage(cardImages['card-back'], 600, 20, 125, 181);
-    } else {
+    if (!boolreveal) {
+      ctx.drawImage(cardImages['back'], 600, 20, 125, 181);
+      ctx.drawImage(cardImages[card], 600 + index * 140, 20, 125, 181);
+    } else if (boolreveal) {
       ctx.drawImage(cardImages[card], 600 + index * 140, 20, 125, 181);
     }
   });
@@ -118,8 +131,9 @@ function drawCards() {
   drawTableCards();
 
   // Display the current counting value
-  text(final.toString(), 1175, 150);
-
+  if (!isDealCardsClicked) {
+    text(final.toString(), 1175 , 150);
+  }
 }
 
 //500 × 726
@@ -146,15 +160,29 @@ function drawRotatedImage(image, x, y, width, height, angleInDegrees) {
 }
 
 
-
 function text(text, width, height) {
-  ctx.font = "30px Arial"; // Change font style and size
-  ctx.fillStyle = "white"; // Change font color
+  ctx.font = "bold 30px 'Arial', sans-serif"; // Use a bold, sans-serif font
+  ctx.fillStyle = "#FFFFFF"; // Use white for the text color
   ctx.textAlign = "center";
+  
+  // Add a slight shadow effect
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
+  ctx.shadowOffsetX = 1;
+  ctx.shadowOffsetY = 1;
+  ctx.shadowBlur = 2;
+  
   ctx.fillText(text, width, height);
+  
+  // Reset the text shadow
+  ctx.shadowColor = 'transparent';
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 0;
+  ctx.shadowBlur = 0;
 }
 
-function buttonClicked() {
+function dealNew() {
+  isDealCardsClicked = true;
+  boolreveal = false;
   Table.push(deck.pop());
   Table.push(deck.pop());
   drawTableCards();
@@ -188,6 +216,14 @@ function init() {
 }
 
 function counting() {
+  if (!isDealCardsClicked) {
+    showNotification('You must deal new cards before you can count the value');
+    return; // return early if "Deal Cards" button was not clicked
+  }
+  Dealer.forEach((card, index) => {
+    identifier(Dealer[index]);
+  })
+  
   Table.forEach((card, index) => {
     identifier(Table[index]);
   });
@@ -197,7 +233,12 @@ function counting() {
   player2.forEach((card, index) => {
     identifier(player2[index]);
   });
-  //console.log(txt);
+
+  isDealCardsClicked = false; // reset flag after counting
+}
+
+function reveal() {
+  boolreveal = true;
 }
 
 function identifier(str) {
@@ -210,6 +251,16 @@ function identifier(str) {
   }
 }
 
+function showNotification(message) {
+  var notification = document.getElementById('notification');
+  notification.innerHTML = message;
+  notification.style.display = 'block';
+
+  // Hide the notification after 3 seconds
+  setTimeout(function() {
+    notification.style.display = 'none';
+  }, 3000);
+}
 
 function animate() {
   drawCards();

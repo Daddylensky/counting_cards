@@ -1,40 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+  <title>Blackjack Game</title>
   <style>
-    .startbutton {  
-      top:7%;
-      left: 81%;
-      width:140px;
-      height:40px;
+    #gameCanvas {
       position: absolute;
-      z-index: 2;
-      background: orange; 
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
-
-    .countbutton {
-      top:7%;
-      left: 70%;
-      width:140px;
-      height:40px;
+    .btn {
       position: absolute;
-      z-index: 2;
-      background: orange; 
+      left: 10px;
+      background-color: #1c87c9;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      transition-duration: 0.4s;
+      border-radius: 12px;
+      box-shadow: 0 10px 14px 0 rgba(0,0,0,0.2), 0 16px 30px 0 rgba(0,0,0,0.19);
+    }
+    .btn:hover {
+      background-color: #39a9db;
+      color: white;
+    }
+    #myab {
+      top: 10px;
+    }
+    #count {
+      top: 60px;
+    }
+    #reveal {
+      top: 110px;
+    }
+    #notification {
+      position: absolute;
+      top: 160px;
+      left: 10px;
+      color: red;
+      font-size: 16px;
     }
   </style>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Card Deck</title>
-  <link rel="stylesheet" href="browser_load.css"> <!-- Include your CSS file -->
 </head>
 <body>
-  <div id="canvasContainer">
-    <canvas id="gameCanvas"></canvas>
-    <input type="button" class="startbutton" id="myab" value="Deal me my cards" />
-    <input type="button" class="countbutton" id="count" value="Counting Value" />
-  </div>
-
+  <canvas id="gameCanvas"></canvas>
+  <button class="btn" id="myab">Deal Cards</button>
+  <button class="btn" id="reveal">Reveal Dealer's Card</button>
+  <button class="btn" id="count">Count Cards</button>
+  <div id="notification" style="display: none;"></div>
   <script src="blackjack.js"></script>
-
 </body>
 </html>
